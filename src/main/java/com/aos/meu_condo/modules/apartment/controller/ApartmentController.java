@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aos.meu_condo.modules.apartment.model.Apartment;
-import com.aos.meu_condo.modules.apartment.model.Condominium;
 import com.aos.meu_condo.modules.apartment.service.ApartmentService;
+import com.aos.meu_condo.modules.condominium.model.Condominium;
 
 import lombok.RequiredArgsConstructor;
 

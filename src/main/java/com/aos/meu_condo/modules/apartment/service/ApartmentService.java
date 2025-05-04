@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.aos.meu_condo.modules.apartment.model.Apartment;
-import com.aos.meu_condo.modules.apartment.model.Condominium;
 import com.aos.meu_condo.modules.apartment.repository.ApartmentRepository;
+import com.aos.meu_condo.modules.condominium.model.Condominium;
 
 import lombok.RequiredArgsConstructor;
 
