@@ -1,5 +1,7 @@
 package com.aos.meu_condo.modules.accountability.model;
 
+import com.aos.meu_condo.modules.condominium.model.Condominium;
+import com.aos.meu_condo.modules.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
