@@ -3,7 +3,8 @@ package com.aos.meu_condo.modules.condominium.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor @NoArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 public class Condominium {
@@ -20,6 +21,5 @@ public class Condominium {
     private String email;
     @Column(length = 20)
     private String telephone;
-
 
 }
