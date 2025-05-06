@@ -1,7 +1,14 @@
 package com.aos.meu_condo.modules.accountability.controller;
 
+import com.aos.meu_condo.modules.accountability.dto.AccountabilityDTO;
 import com.aos.meu_condo.modules.accountability.model.Accountability;
 import com.aos.meu_condo.modules.accountability.repository.AccountabilityRepository;
+import com.aos.meu_condo.modules.accountability.service.AccountabilityService;
+import com.aos.meu_condo.modules.condominium.model.Condominium;
+import com.aos.meu_condo.modules.condominium.repository.CondominiumRepository;
+import com.aos.meu_condo.modules.user.model.User;
+import com.aos.meu_condo.modules.user.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +23,15 @@ public class AccountabilityController {
     @Autowired
     private AccountabilityRepository repository;
 
+    @Autowired
+    private AccountabilityService accountabilityService;
+
+    @Autowired
+    private CondominiumRepository condominiumRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
     public List<Accountability> listarTodos() {
         return repository.findAll();
@@ -28,8 +44,13 @@ public class AccountabilityController {
     }
 
     @PostMapping
-    public Accountability criar(@RequestBody Accountability accountability) {
-        return repository.save(accountability);
+    public ResponseEntity<?> criar(@RequestBody AccountabilityDTO dto) {
+        try {
+            Accountability saved = accountabilityService.createAccountability(dto);
+            return ResponseEntity.ok(saved);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

@@ -1,7 +1,15 @@
 package com.aos.meu_condo.modules.accountability.service;
 
+import com.aos.meu_condo.modules.accountability.dto.AccountabilityDTO;
 import com.aos.meu_condo.modules.accountability.model.Accountability;
 import com.aos.meu_condo.modules.accountability.repository.AccountabilityRepository;
+import com.aos.meu_condo.modules.condominium.model.Condominium;
+import com.aos.meu_condo.modules.condominium.repository.CondominiumRepository;
+import com.aos.meu_condo.modules.condominium.services.CondominiumService;
+import com.aos.meu_condo.modules.user.model.User;
+import com.aos.meu_condo.modules.user.repository.UserRepository;
+import com.aos.meu_condo.modules.user.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -13,7 +21,26 @@ public class AccountabilityService {
     @Autowired
     private AccountabilityRepository accountabilityRepository;
 
-    public Accountability createAccountability(Accountability accountability) {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CondominiumRepository condominiumRepository;
+
+    public Accountability createAccountability(AccountabilityDTO dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+
+        Condominium condominium = condominiumRepository.findById(dto.getCondominiumId())
+                .orElseThrow(() -> new EntityNotFoundException("Condomínio não encontrado"));
+
+        Accountability accountability = new Accountability();
+        accountability.setDescricao(dto.getDescricao());
+        accountability.setValor(dto.getValor());
+        accountability.setData(dto.getData());
+        accountability.setUser(user);
+        accountability.setCondominium(condominium);
+
         return accountabilityRepository.save(accountability);
     }
 
