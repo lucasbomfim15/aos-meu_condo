@@ -30,7 +30,7 @@ public class Apartment {
     private int number;
 
     @ManyToOne
-    @JoinTable(name = "userId")
+    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne

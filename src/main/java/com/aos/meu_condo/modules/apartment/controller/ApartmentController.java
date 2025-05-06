@@ -1,5 +1,7 @@
 package com.aos.meu_condo.modules.apartment.controller;
 
+import com.aos.meu_condo.modules.apartment.dtos.ApartmentDTO;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,9 +46,13 @@ public class ApartmentController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Apartment> create(@RequestBody Apartment apartment) {
-        Apartment newApartment = apartmentService.create(apartment);
-        return ResponseEntity.ok().body(newApartment);
+    public ResponseEntity<?> create(@RequestBody ApartmentDTO dto) {
+        try {
+            Apartment newApartment = apartmentService.create(dto);
+            return ResponseEntity.ok(newApartment);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
